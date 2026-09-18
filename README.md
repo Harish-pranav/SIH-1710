@@ -189,140 +189,6 @@ The interface and voice instructions can be adapted to languages such as:
 * Marathi
 
 ---
-
-# Proposed Architecture
-
-```text
-                         Railway Data Sources
-                                |
-                                v
-                    +-------------------------+
-                    |   Station Digital Twin  |
-                    |                         |
-                    | Maps, Facilities, Paths |
-                    | Accessibility Metadata  |
-                    +-----------+-------------+
-                                |
-                                v
-                    +-------------------------+
-                    |      Backend Server      |
-                    |                         |
-                    | REST APIs                |
-                    | WebSocket                |
-                    | User & Facility Data     |
-                    | Real-Time Updates        |
-                    +-----------+-------------+
-                                |
-            +-------------------+-------------------+
-            |                   |                   |
-            v                   v                   v
-   +----------------+  +----------------+  +----------------+
-   | Navigation     |  | Real-Time      |  | AI / NLP       |
-   | Engine         |  | Update Engine  |  | Assistant      |
-   |                |  |                |  |                |
-   | A* / Dijkstra  |  | Closures       |  | Query Parsing  |
-   | Accessibility  |  | Platform Data  |  | Voice Input    |
-   | Routing        |  | Facility Data  |  | Intent Mapping |
-   +-------+--------+  +-------+--------+  +-------+--------+
-           |                   |                   |
-           +-------------------+-------------------+
-                               |
-                               v
-                    +-------------------------+
-                    |     User Interfaces     |
-                    +-----------+-------------+
-                                |
-             +------------------+------------------+
-             |                  |                  |
-             v                  v                  v
-      +-------------+    +-------------+    +-------------+
-      | Mobile App  |    | Digital     |    | Voice       |
-      |             |    | Kiosk       |    | Navigation  |
-      | 2D/3D Map   |    | Touch UI    |    | Accessibility|
-      +-------------+    +-------------+    +-------------+
-```
-
----
-
-# User Flow
-
-## Standard Passenger Navigation
-
-```text
-Open Application
-       |
-       v
-Select Railway Station
-       |
-       v
-Determine Current Location
-       |
-       v
-Search Destination
-       |
-       v
-Navigation Engine
-       |
-       v
-Calculate Route
-       |
-       v
-Display Route on Map
-       |
-       v
-Provide Turn-by-Turn Directions
-       |
-       v
-Reach Destination
-```
-
-## Accessible Navigation
-
-```text
-Select Accessibility Mode
-            |
-            v
-Select Destination
-            |
-            v
-Filter Inaccessible Paths
-            |
-            v
-Prioritize Lifts / Ramps / Accessible Corridors
-            |
-            v
-Calculate Accessible Route
-            |
-            v
-Provide Navigation
-```
-
-## Kiosk to Mobile Handoff
-
-```text
-Passenger Uses Kiosk
-        |
-        v
-Select Destination
-        |
-        v
-Route Generated
-        |
-        v
-QR Code Displayed
-        |
-        v
-Passenger Scans QR Code
-        |
-        v
-Route Opens in Mobile Application
-        |
-        v
-Continue Navigation
-```
-
----
-
 # Use Cases
 
 ## Use Case 1: Facility Search
@@ -518,28 +384,7 @@ For a hackathon prototype, a manually prepared or synthetic station dataset can 
 
 The Minimum Viable Product will demonstrate a **fully functional indoor navigation workflow for one railway station**, rather than attempting to support multiple stations or complete railway integration.
 
-The MVP should prove that a passenger can:
 
-```text
-Select Station
-      |
-      v
-Select/Confirm Current Location
-      |
-      v
-Search for Platform or Facility
-      |
-      v
-Generate Route
-      |
-      v
-View Route on Station Map
-      |
-      v
-Receive Step-by-Step Directions
-      |
-      v
-Reach Destination
 ```
 
 ## MVP Environment
@@ -655,21 +500,6 @@ The MVP will demonstrate one dynamic event.
 
 Example:
 
-```text
-Normal Route
-     |
-     v
-Corridor Closed
-     |
-     v
-Backend Updates Path Status
-     |
-     v
-Navigation Engine Recalculates
-     |
-     v
-Alternative Route Displayed
-```
 
 The closure can be triggered manually from an administrator/demo interface.
 
@@ -691,39 +521,7 @@ The AI will convert the query into structured navigation information. The route 
 
 ---
 
-# MVP Architecture
 
-```text
-                  +----------------------+
-                  |   Demo Station Data  |
-                  | Map + Facilities     |
-                  | Paths + Accessibility|
-                  +----------+-----------+
-                             |
-                             v
-                  +----------------------+
-                  |      FastAPI         |
-                  |      Backend         |
-                  +----------+-----------+
-                             |
-            +----------------+----------------+
-            |                |                |
-            v                v                v
-     +-------------+  +-------------+  +-------------+
-     | Navigation  |  | Update      |  | AI Query    |
-     | Engine      |  | Manager     |  | Processor   |
-     | A* / Dijkstra| |             |  |             |
-     +------+------+  +------+------+  +------+------+
-            |                |                |
-            +----------------+----------------+
-                             |
-                    +--------+--------+
-                    |                 |
-                    v                 v
-             +-------------+   +-------------+
-             | Mobile App  |   | Kiosk UI    |
-             +-------------+   +-------------+
-```
 
 ---
 
@@ -786,25 +584,6 @@ This single scenario demonstrates the core value of the system:
 
 The prototype will be considered successful when a user can complete the following workflow without manual intervention:
 
-```text
-Current Location
-       ↓
-Destination Search
-       ↓
-Route Generation
-       ↓
-Route Visualization
-       ↓
-Accessible Route Selection
-       ↓
-Voice/Visual Guidance
-       ↓
-Simulated Route Change
-       ↓
-Automatic Recalculation
-       ↓
-Destination
-```
 
 The MVP therefore focuses on demonstrating a **complete working navigation cycle** rather than maximizing the number of advanced technologies or railway integrations.
 
